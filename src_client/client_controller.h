@@ -1,21 +1,18 @@
 /*
-用户逻辑
+文件:communicate_client.h
+作者:龚世伟
+日期:2013.02.18
+描述:用户逻辑
 */
 
-struct User
-{
-	char* username;
-	char* password;
-};
+
+#ifndef MAX_MSG_SIZE
+#define MAX_MSG_SIZE 1024
+#endif
 
 struct Feedback
 {
 	unsigned char state_code;
-	char* message;
+	char message[MAX_MSG_SIZE];
 };
 
-Feedback user_login(User);
-
-Feedback user_register(User);
-
-Feedback user_modify(User);

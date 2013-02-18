@@ -39,7 +39,7 @@ void client_sendstr(const char* request,char* feedback){
 	strcpy(feedback,feedback_msg.msg_text);
 } 
 
-//测试
+/*测试
 int main(int argc, char const *argv[])
 {
 	const char * request = "request";
@@ -48,3 +48,4 @@ int main(int argc, char const *argv[])
 	printf("receive feedback:%s\n",feedback);
 	return 0;
 }
+*/
