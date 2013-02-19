@@ -1,7 +1,7 @@
 #include "user_info.h"
 
 
-#include <string>
+#include <cstring>
 #include <iostream>
 #include "communicate_client.h"
 #include "../json_lib/json.h"

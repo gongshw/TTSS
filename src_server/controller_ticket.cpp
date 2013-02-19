@@ -6,7 +6,7 @@
 */
 
 #include "controller_user.h"
-#include <string>
+#include <cstring>
 #include "../json_lib/json.h"
 
 extern "C" void handle_query(const char* request,char* feedback){

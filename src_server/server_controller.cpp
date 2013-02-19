@@ -10,7 +10,7 @@
 #include "server_controller.h"
 
 #include <dlfcn.h>
-#include <string>
+#include <cstring>
 #include <iostream>
 #include "../json_lib/json.h"
 #include "communicate_server.h"
