@@ -1,7 +1,7 @@
 ttss_server:communicate_server.o server_controller.o controller_user.o controller_ticket.o libjson.a lib_handle.so
-	g++ -o ttss_server communicate_server.o server_controller.o -L . -l json
+	g++ -o ttss_server communicate_server.o server_controller.o -L . -l json -l dl
 lib_handle.so:controller_user.o controller_ticket.o libjson.a
-	g++ -o lib_handle.so -shared controller_user.o controller_ticket.o -L . -l json
+	g++ -o lib_handle.so -shared controller_user.o controller_ticket.o -L . -l json -dl
 communicate_server.o:communicate_server.cpp communicate_server.h
 	g++ -c communicate_server.cpp
 server_controller.o:server_controller.cpp server_controller.h communicate_server.h controller_user.h
