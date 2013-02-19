@@ -1,12 +1,17 @@
 #ifndef TTSS_ClIENT_USER_H_
 #define TTSS_ClIENT_USER_H_
 
+#ifndef MAX_MSG_SIZE
+#define MAX_MSG_SIZE 1024
+#endif
 
 struct User
 {
 	char username[32];
 	char password[32];
 };
+
+char user_msg[MAX_MSG_SIZE];
 
 int user_login(User);
 

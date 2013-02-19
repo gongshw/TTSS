@@ -30,10 +30,8 @@ struct Message
 };
 
 /* 定义处理函数的类型 */
-typedef void(*handle_func)(char*,char*);
+typedef void(*handle_func)(const char*,char*);
 
-/* 用来响应请求的函数指针 */
-handle_func on_server_;
 
 /* 开始监听来自客户端的请求 */
 void start_server();

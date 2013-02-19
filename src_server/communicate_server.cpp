@@ -1,3 +1,10 @@
+/*
+文件:communicate_server.cpp
+作者:龚世伟
+日期:2013.02.18
+描述:服务器通讯响应
+*/
+
 #include "communicate_server.h"
 
 #include <sys/types.h>
@@ -16,10 +23,9 @@
 #define TYPE_FEEDBACK 'f'
 #endif
 
-//测试用的处理函数
-void handle(char* rqst,char* fdbk){
-	strcpy(fdbk,"success!");
-}
+
+/* 用来响应请求的函数指针 */
+handle_func on_server_;
 
 //开始监听
 void start_server(){
@@ -27,7 +33,7 @@ void start_server(){
 	int msgqueue_id;
 	key = ftok("/",'m');
 	msgqueue_id = msgget(key, IPC_CREAT|0660);
-	printf("%s,msgqueue_id is %d\n", "server start!",msgqueue_id);
+	printf("%s,读取消息队列%d。\n", "服务器启动成功!",msgqueue_id);
 
 	while(1){
 		Message request_msg,feedback_msg;
@@ -44,12 +50,4 @@ void start_server(){
 /* 传入一个函数来处理来自客户端的消息 */
 void set_handle(handle_func func ){
 	on_server_ = func;
-}
-
-/* test func*/
-int main(int argc, char const *argv[])
-{
-	set_handle(handle);
-	start_server();
-	return 0;
 }
