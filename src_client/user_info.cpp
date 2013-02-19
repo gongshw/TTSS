@@ -18,9 +18,8 @@ int send_user_info(User user_info,const char* request_type){
 	char buf[100];
 	client_sendstr(request_root.toStyledString().c_str(),buf);
 	reader.parse(buf, feedback_root);
-	std::cout<<buf<<std::endl;
 
-	if (feedback_root["result"]!="pass")
+	if (feedback_root["result"]=="pass")
 	{
 		return 1;
 	}else {
@@ -45,7 +44,8 @@ int main(int argc, char const *argv[])
 
 	User user_info;
 	strcpy(user_info.username,"gongswh");
-	strcpy(user_info.password,"gsw1992");
-	user_modify(user_info);
+	strcpy(user_info.password,"123");
+	if(user_login(user_info))
+		std::cout<<"success!";
 	return 0;
 }

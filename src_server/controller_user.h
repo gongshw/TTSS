@@ -16,8 +16,12 @@
 #ifndef TTSS_SERVER_CONTROLLER_USER_H_
 #define TTSS_SERVER_CONTROLLER_USER_H_
 
+#include <string>
+
 extern "C" void handle_login(const char* request,char* feedback);
 extern "C" void handle_modify(const char* request,char* feedback);
 extern "C" void handle_register(const char* request,char* feedback);
+
+void get_user(const char* request,std::string&,std::string&);
 
 #endif //TTSS_SERVER_CONTROLLER_USER_H_

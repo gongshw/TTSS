@@ -22,17 +22,10 @@ extern "C"{
 void * lib_handle;
 
 //跟据函数名返回函数的函数指针。
-//可以通过这样的方法检索到的函数需要加上extern "C"声明。
-//只要编译是连接到链接中,不需要include目标函数所在的头文件就可以被检索到。
+//可以通过这样的方法检索到的函数需要在动态库./lib_handle.so中。
 //这个部分的设计，详见文档:doc/Design of server controller.pdf。
 handle_func get_handle_fanction(std::string function_name){
-	lib_handle=dlopen("./lib_handle.so",RTLD_NOW);
 	handle_func function;
-   	if (lib_handle==NULL)
-	{
-		std::cout<<dlerror() <<std::endl;
-		return NULL;
-	}
 	function=(handle_func)dlsym(lib_handle,function_name.c_str());
 	//dlclose(lib_handle);
 	if (function!=NULL)
@@ -42,12 +35,26 @@ handle_func get_handle_fanction(std::string function_name){
 }
 
 
+void load_lib_handle(const char* lib_pathname){
+	lib_handle=dlopen(lib_pathname,RTLD_NOW);
+
+   	if (lib_handle==NULL)
+	{
+		std::cout<<dlerror() <<std::endl;
+		exit(-1);
+	} else {
+		std::cout<<"成功加载库:"<<lib_pathname <<std::endl;
+	}
+
+}
+
 /*
 程序入口
 */
 int main(int argc, char const *argv[])
 {
 	print_compile_info(); /* 打印编译时间和编译器版本 */
+	load_lib_handle("lib_handle.so");
 	set_handle(handle_request);
 	start_server();
 	return 0;

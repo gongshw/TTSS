@@ -15,3 +15,6 @@ void handle_request(const char*,char*);
 //打印编译信息
 void print_compile_info();
 #endif // TTSS_SERVER_CONTROLLER_H_
+
+//加载处理请求函数的动态库
+void load_lib_handle(const char*);

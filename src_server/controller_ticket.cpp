@@ -5,7 +5,7 @@
 描述:处理用户查票、订票和改签的控制器
 */
 
-#include "controller_user.h"
+#include "controller_ticket.h"
 #include <cstring>
 #include "../json_lib/json.h"
 

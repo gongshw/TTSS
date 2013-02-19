@@ -4,7 +4,6 @@
 #include <sys/msg.h>
 #include <unistd.h>
 #include <string.h>
-#include <stdio.h>
 
 /* 消息类型 请求 */
 #ifndef TYPE_REQUEST
@@ -34,18 +33,6 @@ void client_sendstr(const char* request,char* feedback){
 	request_msg.msg_type = TYPE_REQUEST;
 	strcpy(request_msg.msg_text,request);
 	msgsnd(msgqueue_id,(void *)&request_msg,strlen(request_msg.msg_text)+1,0);
-	printf("send \"%s\" to msg quene %d\n", request , msgqueue_id);
 	msgrcv(msgqueue_id, (void *) &feedback_msg,MAX_MSG_SIZE, TYPE_FEEDBACK,0);
 	strcpy(feedback,feedback_msg.msg_text);
 } 
-
-/*测试
-int main(int argc, char const *argv[])
-{
-	const char * request = "request";
-	char feedback[20];
-	client_sendstr(request,feedback);
-	printf("receive feedback:%s\n",feedback);
-	return 0;
-}
-*/
