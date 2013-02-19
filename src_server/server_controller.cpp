@@ -36,8 +36,9 @@ handle_func get_handle_fanction(std::string function_name){
 }
 
 
-void load_lib_handle(const char* lib_pathname){
-	lib_handle=dlopen(lib_pathname,RTLD_NOW);
+void load_lib_handle(const char* lib_name){
+	std::string lib_pathname = "./"+std::string(lib_name);
+	lib_handle=dlopen(lib_pathname.c_str(),RTLD_NOW);
 
    	if (lib_handle==NULL)
 	{
