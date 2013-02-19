@@ -17,20 +17,24 @@ extern "C"{
 #include "../json_lib/json.h"
 #include "communicate_server.h"
 
+
+
+void * lib_handle;
+
 //跟据函数名返回函数的函数指针。
 //可以通过这样的方法检索到的函数需要加上extern "C"声明。
 //只要编译是连接到链接中,不需要include目标函数所在的头文件就可以被检索到。
 //这个部分的设计，详见文档:doc/Design of server controller.pdf。
 handle_func get_handle_fanction(std::string function_name){
-	void *handle=dlopen(NULL,RTLD_NOW);
+	lib_handle=dlopen("./lib_handle.so",RTLD_NOW);
 	handle_func function;
-   	if (handle==NULL)
+   	if (lib_handle==NULL)
 	{
 		std::cout<<dlerror() <<std::endl;
 		return NULL;
 	}
-	function=(handle_func)dlsym(handle,"handle_login");//function_name.c_str());
-	dlclose(handle);
+	function=(handle_func)dlsym(lib_handle,function_name.c_str());
+	//dlclose(lib_handle);
 	if (function!=NULL)
 		return function;
 	else 
@@ -70,6 +74,7 @@ void handle_request(const char* request,char* feedback){
 	if (function!=NULL)
 	{
 		std::cout<<"success find request function!"<<std::endl;
+		//strcpy(feedback,"XXX");
 		function(request,feedback);
 	} else
 	{
