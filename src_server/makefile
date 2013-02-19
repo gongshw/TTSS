@@ -1,5 +1,5 @@
 ttss_server:communicate_server.o server_controller.o controller_user.o controller_ticket.o libjson.a
-	g++ -o ttss_server communicate_server.o server_controller.o controller_user.o controller_ticket.o -L . -l json
+	g++ -o ttss_server communicate_server.o server_controller.o controller_user.o controller_ticket.o -L . -l json -l dl
 communicate_server.o:communicate_server.cpp communicate_server.h
 	g++ -c communicate_server.cpp
 server_controller.o:server_controller.cpp server_controller.h communicate_server.h controller_user.h
