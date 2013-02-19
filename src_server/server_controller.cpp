@@ -9,7 +9,9 @@
 
 #include "server_controller.h"
 
-#include <dlfcn.h>
+extern "C"{
+	#include <dlfcn.h>
+}
 #include <cstring>
 #include <iostream>
 #include "../json_lib/json.h"
