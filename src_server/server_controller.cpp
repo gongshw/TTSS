@@ -14,6 +14,7 @@ extern "C"{
 }
 #include <cstring>
 #include <iostream>
+#include <stdlib.h>
 #include "../json_lib/json.h"
 #include "communicate_server.h"
 
