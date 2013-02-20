@@ -2,7 +2,7 @@
 	"database":{
 		"username":"root",
 		"password":"",
-		"host":"localhost",
+		"host":"192.168.0.100",
 		"database_name":"ttss",
 	}
 }

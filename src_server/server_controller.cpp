@@ -45,7 +45,7 @@ void load_lib_handle(const char* lib_name){
 		std::cout<<dlerror() <<std::endl;
 		exit(-1);
 	} else {
-		std::cout<<"成功加载库:"<<lib_pathname <<std::endl;
+		std::cout<<"成功加载库:"<<lib_name <<std::endl;
 	}
 
 }
