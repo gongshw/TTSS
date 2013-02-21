@@ -58,7 +58,7 @@ int query_train(const char* start,const char* arrival,std::vector<Train>&);
 
 /* 查询发车 */
 int query_depart(const char* start,const char* arrival,
-	const Date,std::vector<Depart> &);
+	const char* date,std::vector<Depart> &);
 
 /* 订票 */
 Ticket order_ticket(const char* train_number,Date date);

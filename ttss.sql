@@ -1,82 +1,67 @@
-CREATE DATABASE  IF NOT EXISTS `ttss` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `ttss`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
---
--- Host: localhost    Database: ttss
--- ------------------------------------------------------
--- Server version	5.5.28
+/*
+ Navicat Premium Data Transfer
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+ Source Server         : localhost
+ Source Server Type    : MySQL
+ Source Server Version : 50528
+ Source Host           : localhost
+ Source Database       : ttss
 
---
--- Table structure for table `depart`
---
+ Target Server Type    : MySQL
+ Target Server Version : 50528
+ File Encoding         : utf-8
 
+ Date: 02/21/2013 23:45:04 PM
+*/
+
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `depart`
+-- ----------------------------
 DROP TABLE IF EXISTS `depart`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `depart` (
   `did` int(11) NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `remain_seats` int(11) NOT NULL,
   `tid` int(11) DEFAULT NULL,
   PRIMARY KEY (`did`),
   UNIQUE KEY `did_UNIQUE` (`did`),
   KEY `trainCons` (`tid`),
   CONSTRAINT `trainCons` FOREIGN KEY (`tid`) REFERENCES `train` (`tid`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `depart`
---
+-- ----------------------------
+--  Records of `depart`
+-- ----------------------------
+BEGIN;
+INSERT INTO `depart` VALUES ('1', '2013-02-20', '100', '1');
+COMMIT;
 
-LOCK TABLES `depart` WRITE;
-/*!40000 ALTER TABLE `depart` DISABLE KEYS */;
-/*!40000 ALTER TABLE `depart` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `station`
---
-
+-- ----------------------------
+--  Table structure for `station`
+-- ----------------------------
 DROP TABLE IF EXISTS `station`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `station` (
   `sid` int(11) NOT NULL AUTO_INCREMENT,
   `city` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`sid`),
   UNIQUE KEY `sid_UNIQUE` (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `station`
---
+-- ----------------------------
+--  Records of `station`
+-- ----------------------------
+BEGIN;
+INSERT INTO `station` VALUES ('1', '南京', '南京南站'), ('2', '南京', '南京站'), ('3', '扬州', '扬州站');
+COMMIT;
 
-LOCK TABLES `station` WRITE;
-/*!40000 ALTER TABLE `station` DISABLE KEYS */;
-/*!40000 ALTER TABLE `station` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ticket`
---
-
+-- ----------------------------
+--  Table structure for `ticket`
+-- ----------------------------
 DROP TABLE IF EXISTS `ticket`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ticket` (
   `ticid` int(11) NOT NULL AUTO_INCREMENT,
   `number` int(11) NOT NULL,
@@ -86,24 +71,11 @@ CREATE TABLE `ticket` (
   KEY `departCons_idx` (`did`),
   CONSTRAINT `departCons` FOREIGN KEY (`did`) REFERENCES `depart` (`did`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `ticket`
---
-
-LOCK TABLES `ticket` WRITE;
-/*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `train`
---
-
+-- ----------------------------
+--  Table structure for `train`
+-- ----------------------------
 DROP TABLE IF EXISTS `train`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `train` (
   `tid` int(11) NOT NULL AUTO_INCREMENT,
   `start_station_id` int(11) NOT NULL,
@@ -111,28 +83,22 @@ CREATE TABLE `train` (
   `number` varchar(45) NOT NULL,
   `price` double NOT NULL,
   `seats` int(11) NOT NULL,
-  `start_time` datetime NOT NULL,
-  `arrival_time` datetime NOT NULL,
+  `start_time` time NOT NULL,
+  `arrival_time` time NOT NULL,
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `train`
---
+-- ----------------------------
+--  Records of `train`
+-- ----------------------------
+BEGIN;
+INSERT INTO `train` VALUES ('1', '1', '3', 'K1123', '40', '100', '07:46:09', '12:00:00'), ('2', '2', '3', 'T1242', '59', '50', '00:00:00', '00:00:00');
+COMMIT;
 
-LOCK TABLES `train` WRITE;
-/*!40000 ALTER TABLE `train` DISABLE KEYS */;
-/*!40000 ALTER TABLE `train` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `user`
---
-
+-- ----------------------------
+--  Table structure for `user`
+-- ----------------------------
 DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `uid` int(11) NOT NULL AUTO_INCREMENT,
   `uname` varchar(45) NOT NULL,
@@ -140,25 +106,25 @@ CREATE TABLE `user` (
   `real_name` varchar(45) NOT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `uname_UNIQUE` (`uname`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `user`
---
+-- ----------------------------
+--  Records of `user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES ('1', 'gongshw', '123', '龚世伟'), ('13', 'gongshw0', '123', '龚世伟爱婕妤');
+COMMIT;
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+-- ----------------------------
+--  View structure for `depart_view`
+-- ----------------------------
+DROP VIEW IF EXISTS `depart_view`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `depart_view` AS select `depart`.`date` AS `date`,`depart`.`remain_seats` AS `remain_seats`,`train_view`.`arrival_station_city` AS `arrival_station_city`,`train_view`.`start_station_city` AS `start_station_city`,`train_view`.`arrival_station_name` AS `arrival_station_name`,`train_view`.`number` AS `number`,`train_view`.`price` AS `price`,`train_view`.`seats` AS `seats`,`train_view`.`start_time` AS `start_time`,`train_view`.`arrival_time` AS `arrival_time`,`train_view`.`start_station_name` AS `start_station_name` from (`depart` join `train_view` on((`depart`.`tid` = `train_view`.`tid`)));
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+-- ----------------------------
+--  View structure for `train_view`
+-- ----------------------------
+DROP VIEW IF EXISTS `train_view`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `train_view` AS select `train`.`number` AS `number`,`train`.`price` AS `price`,`train`.`seats` AS `seats`,`train`.`start_time` AS `start_time`,`train`.`arrival_time` AS `arrival_time`,`start_station`.`name` AS `start_station_name`,`arrival_station`.`name` AS `arrival_station_name`,`start_station`.`city` AS `start_station_city`,`arrival_station`.`city` AS `arrival_station_city`,`train`.`tid` AS `tid` from ((`train` join `station` `start_station` on((`train`.`start_station_id` = `start_station`.`sid`))) join `station` `arrival_station` on((`train`.`arrival_station_id` = `arrival_station`.`sid`)));
 
--- Dump completed on 2013-02-19 22:29:30
+SET FOREIGN_KEY_CHECKS = 1;

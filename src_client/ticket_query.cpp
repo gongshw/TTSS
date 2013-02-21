@@ -40,7 +40,7 @@ int query_train(const char* start,const char* arrival,std::vector<Train>&){
 
 /* 查询发车 */
 int query_depart(const char* start,const char* arrival,
-	Date date,std::vector<Depart> &){
+	const char* date,std::vector<Depart> &){
 
 	Json::Value feedback_root;
 	send_query(feedback_root,"query_depart",start,arrival,date);
