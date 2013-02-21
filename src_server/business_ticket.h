@@ -64,7 +64,7 @@ int query_depart(const char* start,const char* arrival,
 	const Date,std::vector<Depart> &);
 
 /* 订票 */
-Ticket order_ticket(Depart);
+Ticket order_ticket(const char* , const char* );
 
 /* 改签 */
 Ticket change_ticket(Ticket,Date);

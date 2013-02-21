@@ -114,7 +114,8 @@ extern "C" void handle_query_depart(const char* request,char* feedback){
 
 
 extern "C" void handle_order(const char* request,char* feedback){
-	
+	_INIT_READER_AND_VALUE_ROOT;
+
 }
 extern "C" void handle_change(const char* request,char* feedback){
 

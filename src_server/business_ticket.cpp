@@ -109,6 +109,9 @@ int query_depart(const char* start_station,const char* arrival_station,
 	return result_count;
 }
 
-Ticket order_ticket(Depart depart){
-	
+
+//train_number 车次
+//date 发车日期
+Ticket order_ticket(const char* train_number, const char* date){
+
 }
