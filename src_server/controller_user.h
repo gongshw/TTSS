@@ -22,6 +22,6 @@ extern "C" void handle_login(const char* request,char* feedback);
 extern "C" void handle_modify(const char* request,char* feedback);
 extern "C" void handle_register(const char* request,char* feedback);
 
-void get_user(const char* request,std::string&,std::string&);
+void get_user(const char* request, char*, char*, char*);
 
 #endif //TTSS_SERVER_CONTROLLER_USER_H_

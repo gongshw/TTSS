@@ -6,22 +6,28 @@
 #
 
 server_objects =  communicate_server.o server_controller.o
-business_objects = controller_user.o controller_ticket.o database.o
+business_objects = business_user.o business_ticket.o database.o
+controller_objects = controller_user.o controller_ticket.o
 
 
 ttss_server: $(server_objects) libjson.a lib_handle.so
 	g++ -o ttss_server $(server_objects) -L . -l json -l dl
-lib_handle.so: $(business_objects) libjson.a
-	g++ -o lib_handle.so -shared $(business_objects) -L . -l json $$(mysql_config --libs)
+lib_handle.so: $(business_objects) $(controller_objects) libjson.a
+	g++ -o lib_handle.so -shared $(business_objects) $(controller_objects) -L . -l json $$(mysql_config --libs)
 
 server_objects: communicate_server.h
 business_objects: database.h
+
 communicate_server.o:communicate_server.cpp
-	g++ -c communicate_server.cpp
 server_controller.o:server_controller.cpp server_controller.h
+
 controller_user.o:controller_user.cpp
-	g++ -c controller_user.cpp $$(mysql_config --cflags)
 controller_ticket.o:controller_ticket.cpp
+
+business_user.o:business_user.cpp business_user.h
+	g++ -c business_user.cpp $$(mysql_config --cflags)
+business_ticket.o:business_ticket.cpp business_ticket.h
+	g++ -c business_ticket.cpp $$(mysql_config --cflags)
 database.o:database.cpp database.h
 	g++ -c database.cpp $$(mysql_config --cflags)
 
