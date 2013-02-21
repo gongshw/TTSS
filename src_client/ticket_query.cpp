@@ -49,11 +49,13 @@ int query_depart(const char* start,const char* arrival,
 }
 
 /* 订票 */
-Ticket order_ticket(Depart deprt){
+Ticket order_ticket(const char* train_number,Date date){
+	Json::Reader reader;
+	Json::Value request_root;
+	request_root["request"] = "order";
 	Ticket ticket;
-	ticket.deprt = deprt;
-	
-	return Ticket();
+
+	return ticket;
 }
 
 /* 改签 */

@@ -108,3 +108,7 @@ int query_depart(const char* start_station,const char* arrival_station,
 	mysql_free_result(result);
 	return result_count;
 }
+
+Ticket order_ticket(Depart depart){
+	
+}
