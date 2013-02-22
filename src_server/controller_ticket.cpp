@@ -115,6 +115,23 @@ extern "C" void handle_query_depart(const char* request,char* feedback){
 
 extern "C" void handle_order(const char* request,char* feedback){
 	_INIT_READER_AND_VALUE_ROOT;
+	printf("%s\n", request);
+	Ticket ticket = order_ticket(request_root["train_number"].asCString(),
+		request_root["date"].asCString());
+	if (ticket.seat_number)
+	{
+		Train train =  ticket.depart.train;
+		// _INSERT_TRAIN_INTO_VALUE_ (feedback_root);
+		// feedback_root["date"] = ticket.depart.date;
+		// feedback_root["seat"] = ticket.seat_number;
+		feedback_root["result"] = "pass";
+	} else {
+		feedback_root["result"] = "fail";
+		feedback_root["message"] = "no depart found!";
+	}
+	strcpy(feedback,feedback_root.toStyledString().c_str());
+
+	printf("%s\n", feedback);
 
 }
 extern "C" void handle_change(const char* request,char* feedback){

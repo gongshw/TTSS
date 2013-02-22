@@ -43,7 +43,7 @@ struct Depart
 {
 	Train train;	//车次信息
 	Date date;		//发车日期
-	int remain_seats;	//剩余座位数
+	char remain_seats[32];	//剩余座位数
 };
 
 //车票
@@ -61,7 +61,7 @@ int query_depart(const char* start,const char* arrival,
 	const char* date,std::vector<Depart> &);
 
 /* 订票 */
-Ticket order_ticket(const char* train_number,Date date);
+Ticket order_ticket(const char* train_number,const char* date);
 
 /* 改签 */
 Ticket change_ticket(Ticket,Date);
