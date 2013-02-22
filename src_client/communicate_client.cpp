@@ -27,7 +27,7 @@ void client_sendstr(const char* request,char* feedback){
 	key_t key;
 	int msgqueue_id;
 	key = ftok("/",'m');
-	msgqueue_id = msgget(key, IPC_CREAT|0660);
+	msgqueue_id = msgget(key, 0660);
 	Message request_msg,feedback_msg;
 
 	request_msg.msg_type = TYPE_REQUEST;

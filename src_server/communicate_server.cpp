@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <cstdlib>
 
 /* 消息类型 请求 */
 #ifndef TYPE_REQUEST
@@ -33,16 +34,20 @@ void start_server(){
 	int msgqueue_id;
 	key = ftok("/",'m');
 	msgqueue_id = msgget(key, IPC_CREAT|0660);
-	printf("%s读取消息队列%d。\n", "服务器启动成功!",msgqueue_id);
+	char del_msg_q[128];
+	sprintf(del_msg_q,"ipcrm -q %d",msgqueue_id);
+	system(del_msg_q);
+	msgqueue_id = msgget(key, IPC_CREAT|0660);
+	printf(">>%s读取消息队列%d。\n", "服务器启动成功!",msgqueue_id);
 
 	while(1){
 		Message request_msg,feedback_msg;
 		msgrcv(msgqueue_id, (void *) &request_msg,MAX_MSG_SIZE, TYPE_REQUEST,0);
-		//printf("receive msg: %s\n", request_msg.msg_text);
+		printf("∆∆receive msg: %s\n", request_msg.msg_text);
 		on_server_(request_msg.msg_text,feedback_msg.msg_text);		/* 调用on_server_指针指向的函数处理请求 */
 		feedback_msg.msg_type = TYPE_FEEDBACK;
 		msgsnd(msgqueue_id,(void *)&feedback_msg,strlen(feedback_msg.msg_text)+1,0);
-		//printf("return feedback: %s\n", feedback_msg.msg_text);
+		printf("∆∆return feedback: %s\n", feedback_msg.msg_text);
 	}
 
 }

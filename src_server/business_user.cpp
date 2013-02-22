@@ -1,5 +1,7 @@
 #include "business_user.h"
 
+#include <cstring>
+
 #include "database.h"
 
 
@@ -23,7 +25,9 @@ bool user_check_exist(const char* username){
 	return result;
 }
 
-bool user_login(const char* username, const char* password){
+bool user_login(const char* username, const char* password,
+	char * real_name_buf){
+
 	char sql_buf[512];
 	sprintf(sql_buf,"SELECT * FROM `USER` WHERE UNAME = \"%s\" AND PASSWORD = \"%s\"",
 		username,password);
@@ -31,14 +35,15 @@ bool user_login(const char* username, const char* password){
 	MYSQL_RES* result = dao.executeSQL(sql_string);
 	bool login_result;
 
-	MYSQL_ROW result_row;
+	std::string real_name;
 
-	if (result_row = mysql_fetch_row(result))
+	if ( dao.get_first_row_column(result,"real_name",real_name))
 	{
+		strcpy(real_name_buf,real_name.c_str());
 		login_result = true;
 	} else 
 	{
-		login_result - false;
+		login_result = false;
 	}
 	mysql_free_result(result);
 	return login_result;

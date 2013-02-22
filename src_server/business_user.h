@@ -9,7 +9,7 @@
 #ifndef TTSS_SERVER_BUSINESS_USER_H_
 #define TTSS_SERVER_BUSINESS_USER_H_
 
-bool user_login(const char* username, const char* password);
+bool user_login(const char* username, const char* password, char* real_name);
 bool user_modify(const char* username, const char* password, const char* real_name);
 bool user_register(const char* username, const char* password, const char* real_name);
 bool user_check_exist(const char* username);

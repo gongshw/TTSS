@@ -50,7 +50,7 @@ struct Depart
 struct Ticket
 {
 	Depart depart;		//发车信息
-	int seat_number;	//座位号
+	char seat_number[32];	//座位号
 };
 
 /* 查询车站 */
@@ -64,10 +64,13 @@ int query_depart(const char* start,const char* arrival,
 	const Date,std::vector<Depart> &);
 
 /* 订票 */
-Ticket order_ticket(const char* , const char* );
+bool order_ticket(const char* , const char* , const char*, Ticket&);
 
 /* 改签 */
 Ticket change_ticket(Ticket,Date);
+
+//查询购买的车票
+int query_ticket(const char * username,std::vector<Ticket> & result_vector);
 
 
 #endif //TTSS_SERVER_BUSINESS_TICKET_H_

@@ -14,6 +14,8 @@ struct User
 
 extern char user_msg[MAX_MSG_SIZE];
 
+extern User current_user;
+
 int user_login(User);
 
 int user_register(User);

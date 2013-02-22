@@ -4,9 +4,11 @@
 #include <cstring>
 #include <iostream>
 #include "communicate_client.h"
-#include "../json_lib/json.h"
+#include "json.h"
 
 char user_msg[MAX_MSG_SIZE];
+
+User current_user;
 
 void get_feeedback_msg(char* buf){
 	strcpy(buf,user_msg);
@@ -25,11 +27,12 @@ int send_user_info(User user_info,const char* request_type){
 	client_sendstr(request_root.toStyledString().c_str(),buf);
 	reader.parse(buf, feedback_root);
 
-	std::cout<<buf;
 
 	strcpy(user_msg,feedback_root["message"].asString().c_str());
 
-	if (feedback_root["result"]=="pass")
+	std::cout<<buf;
+
+	if (feedback_root["result"].asString()=="pass")
 	{
 		return 1;
 	}else {
@@ -38,7 +41,13 @@ int send_user_info(User user_info,const char* request_type){
 }
 
 int user_login(User user_info){
-	return send_user_info(user_info,"login");
+	if (send_user_info(user_info,"login"))
+	{
+		current_user = user_info;
+		return true;
+	} else {
+		return false;
+	}
 }
 
 int user_register(User user_info){

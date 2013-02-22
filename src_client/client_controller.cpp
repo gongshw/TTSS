@@ -3,26 +3,37 @@
 #include <cstring>
 #include <cstdio>
 
+#include <QtGui/QApplication>
+#include "ClientUI/logDialog.h"
+#include "ClientUI/clientmainwindow.h"
+
 #include "user_info.h"
 #include "ticket_query.h"
 
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
-	User user;
-
-	strcpy(user.username,"gongshw");
-	strcpy(user.password,"123");
-	strcpy(user.real_name,"龚世伟");
-
-	// user_login(user);
-
 	// std::vector<Depart> train_vector;
 	// query_depart("南京","扬州","2013-02-20",train_vector);
+
+	//QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+
+	QApplication a(argc, argv);
+
+
+    
+	ClientMainWindow w;
+    logDialog ld(&w);
+    ld.show();
+
+	//w.show();
+
+    return a.exec();
+
+
 
 	//printf("%s\n", user_msg);
 
 
-	order_ticket("K1123","2013-02-20");
-
-	return 0;
+	//Ticket t;
+	// order_ticket("K1123","2013-02-20",t);
 }

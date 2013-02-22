@@ -19,5 +19,6 @@
 extern "C" void handle_query(const char* request,char* feedback);
 extern "C" void handle_order(const char* request,char* feedback);
 extern "C" void handle_change(const char* request,char* feedback);
+extern "C" void handle_my_tickets(const char* request,char* feedback);
 
 #endif //TTSS_SERVER_CONTROLLER_TICKET_H_

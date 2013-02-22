@@ -24,13 +24,14 @@ extern "C" void handle_login(const char* request,char* feedback){
 	Json::Value	feedback_root; 
 	char username[32],password[32],real_name[32];
 	get_user(request,username,password,real_name);
-
-	bool result = user_login(username, password);
+	
+	bool result = user_login(username, password, real_name);
 
 	if (result)
 	{
 		feedback_root["result"] = "pass";
 		feedback_root["message"] = "login seccess!";
+		feedback_root["real_name"] = real_name;
 	} else 
 	{
 		feedback_root["result"] = "fail";

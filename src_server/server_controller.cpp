@@ -37,7 +37,7 @@ handle_func get_handle_fanction(std::string function_name){
 
 
 void load_lib_handle(const char* lib_name){
-	std::string lib_pathname = "./"+std::string(lib_name);
+	std::string lib_pathname = ""+std::string(lib_name);
 	lib_handle=dlopen(lib_pathname.c_str(),RTLD_NOW);
 
    	if (lib_handle==NULL)
@@ -45,7 +45,7 @@ void load_lib_handle(const char* lib_name){
 		std::cout<<dlerror() <<std::endl;
 		exit(-1);
 	} else {
-		std::cout<<"成功加载库:"<<lib_name <<std::endl;
+		std::cout<<">>成功加载库:"<<lib_name <<std::endl;
 	}
 
 }
@@ -76,17 +76,17 @@ void handle_request(const char* request,char* feedback){
 	Json::Value request_root,feedback_root; 
 	reader.parse(request, request_root);
 	std::string request_type =  request_root["request"].asString();
-	std::cout<<"request_type:"<<request_type<<std::endl;
+	std::cout<<">请求类型:"<<request_type<<"|";
 
 	std::string handle_function_name = "handle_"+request_type;
 	handle_func function = get_handle_fanction(handle_function_name);
 	if (function!=NULL)
 	{
-		std::cout<<"success find request function!"<<std::endl;
-		//strcpy(feedback,"XXX");
+		std::cout<<"开始处理请求";
 		function(request,feedback);
 	} else
 	{
+		std::cout<<"未知的请求类型";
 		feedback_root["result"] = "fail";
 		feedback_root["message"] = "unknow request:"+request_type;
 		strcpy(feedback,feedback_root.toStyledString().c_str());
@@ -97,5 +97,6 @@ void handle_request(const char* request,char* feedback){
 使用预编译宏打印编译时间和编译器版本
 */
 void print_compile_info(){
-	std::cout<<"编译时间:"<<__DATE__<<" "<<__TIME__<<std::endl<<"编译器版本"<<__VERSION__<<std::endl;
+	std::cout<<">>编译时间:"<<__DATE__<<" "<<__TIME__
+		<<std::endl<<">>编译器版本"<<__VERSION__<<std::endl;
 }

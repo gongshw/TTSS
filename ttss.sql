@@ -11,7 +11,7 @@
  Target Server Version : 50528
  File Encoding         : utf-8
 
- Date: 02/21/2013 23:45:04 PM
+ Date: 02/22/2013 23:39:07 PM
 */
 
 SET NAMES utf8;
@@ -36,7 +36,7 @@ CREATE TABLE `depart` (
 --  Records of `depart`
 -- ----------------------------
 BEGIN;
-INSERT INTO `depart` VALUES ('1', '2013-02-20', '100', '1');
+INSERT INTO `depart` VALUES ('1', '2013-02-20', '66', '1');
 COMMIT;
 
 -- ----------------------------
@@ -66,11 +66,19 @@ CREATE TABLE `ticket` (
   `ticid` int(11) NOT NULL AUTO_INCREMENT,
   `number` int(11) NOT NULL,
   `did` int(11) NOT NULL,
+  `consumer` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ticid`),
   UNIQUE KEY `ticid_UNIQUE` (`ticid`),
   KEY `departCons_idx` (`did`),
   CONSTRAINT `departCons` FOREIGN KEY (`did`) REFERENCES `depart` (`did`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `ticket`
+-- ----------------------------
+BEGIN;
+INSERT INTO `ticket` VALUES ('1', '33', '1', 'gongshw'), ('2', '34', '1', 'gongshw');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `train`
@@ -106,20 +114,26 @@ CREATE TABLE `user` (
   `real_name` varchar(45) NOT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `uname_UNIQUE` (`uname`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1', 'gongshw', '123', '龚世伟'), ('13', 'gongshw0', '123', '龚世伟爱婕妤');
+INSERT INTO `user` VALUES ('1', 'gongshw', '123', '龚世伟'), ('2', 'zsh', '123', '张书豪');
 COMMIT;
 
 -- ----------------------------
 --  View structure for `depart_view`
 -- ----------------------------
 DROP VIEW IF EXISTS `depart_view`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `depart_view` AS select `depart`.`date` AS `date`,`depart`.`remain_seats` AS `remain_seats`,`train_view`.`arrival_station_city` AS `arrival_station_city`,`train_view`.`start_station_city` AS `start_station_city`,`train_view`.`arrival_station_name` AS `arrival_station_name`,`train_view`.`number` AS `number`,`train_view`.`price` AS `price`,`train_view`.`seats` AS `seats`,`train_view`.`start_time` AS `start_time`,`train_view`.`arrival_time` AS `arrival_time`,`train_view`.`start_station_name` AS `start_station_name` from (`depart` join `train_view` on((`depart`.`tid` = `train_view`.`tid`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `depart_view` AS select `depart`.`date` AS `date`,`depart`.`remain_seats` AS `remain_seats`,`train_view`.`arrival_station_city` AS `arrival_station_city`,`train_view`.`start_station_city` AS `start_station_city`,`train_view`.`arrival_station_name` AS `arrival_station_name`,`train_view`.`number` AS `number`,`train_view`.`price` AS `price`,`train_view`.`seats` AS `seats`,`train_view`.`start_time` AS `start_time`,`train_view`.`arrival_time` AS `arrival_time`,`train_view`.`start_station_name` AS `start_station_name`,`depart`.`did` AS `did` from (`depart` join `train_view` on((`depart`.`tid` = `train_view`.`tid`)));
+
+-- ----------------------------
+--  View structure for `ticket_view`
+-- ----------------------------
+DROP VIEW IF EXISTS `ticket_view`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ticket_view` AS select `ticket`.`consumer` AS `consumer`,`ticket`.`did` AS `did`,`ticket`.`number` AS `ticket_number`,`depart_view`.`date` AS `date`,`depart_view`.`start_time` AS `start_time`,`depart_view`.`arrival_time` AS `arrival_time`,`depart_view`.`start_station_name` AS `start_station_name`,`depart_view`.`arrival_station_name` AS `arrival_station_name`,`depart_view`.`remain_seats` AS `remain_seats`,`depart_view`.`arrival_station_city` AS `arrival_station_city`,`depart_view`.`start_station_city` AS `start_station_city`,`depart_view`.`number` AS `number`,`depart_view`.`price` AS `price`,`depart_view`.`seats` AS `seats` from (`ticket` join `depart_view` on((`ticket`.`did` = `depart_view`.`did`)));
 
 -- ----------------------------
 --  View structure for `train_view`

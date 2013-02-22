@@ -15,24 +15,13 @@
 typedef char Date[32];
 typedef char Time[32];
 
-//车站数据结构
-struct Station
-{
-	//车站所在城市
-	char city[32];
-
-	//车站名称
-	char name[32];
-};
-
-
 //班次数据结构
 struct Train
 {
 	char number[32];		//车次
-	Station start_station;	//始发站
+	char start_station[32];	//始发站
 	Time start_tinme;//发车时间
-	Station arrival_station;	//终点站
+	char arrival_station[32];	//终点站
 	Time arrival_tinme;//到达时间
 	char price[32];			//票价
 	char amount_seats[32];		//总座位数
@@ -50,7 +39,7 @@ struct Depart
 struct Ticket
 {
 	Depart depart;		//发车信息
-	int seat_number;	//座位号
+	char seat_number[32];	//座位号
 };
 
 /* 查询车次 */
@@ -61,10 +50,12 @@ int query_depart(const char* start,const char* arrival,
 	const char* date,std::vector<Depart> &);
 
 /* 订票 */
-Ticket order_ticket(const char* train_number,const char* date);
+bool order_ticket(const char* train_number,const char* date,Ticket&);
 
 /* 改签 */
 Ticket change_ticket(Ticket,Date);
 
+/* 查询我的车票 */
+int query_ticket(std::vector<Ticket>&);
 
 #endif //TTSS_CLIENT_BUSINESS_TICKET_H_

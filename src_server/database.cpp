@@ -24,7 +24,7 @@ DAO::DAO()
 	string db_name = database_config["database_name"].asString();
 
 	if(this->initDB(server_host,user,password,db_name))
-		cout<<"连接到数据库:"<<db_name<<"@"<<server_host<<"。"<<endl;
+		cout<<">>连接到数据库:"<<db_name<<"@"<<server_host<<"。"<<endl;
 		//cout<<"用户名"<<user<<" 密码:"<<password<<" 数据库:"<<db_name<<endl;
 }
 DAO::~DAO()
@@ -69,11 +69,13 @@ bool DAO::get_first_row_column(MYSQL_RES* result,
 	MYSQL_ROW row;
 	if (row = mysql_fetch_row(result)) {
 		this->get_column(row, result, field_name, column);
-		mysql_data_seek(result,0);
+		mysql_row_seek(result,0);
 		return true;
 	}
-	else
+	else{
+		mysql_data_seek(result,0);
 		return false;
+	}
 }
 
 bool DAO::get_column(MYSQL_ROW row, MYSQL_RES* result ,const char* field_name,
