@@ -68,9 +68,8 @@ bool DAO::get_first_row_column(MYSQL_RES* result,
 
 	MYSQL_ROW row;
 	if (row = mysql_fetch_row(result)) {
-
-		mysql_row_seek(0);
 		this->get_column(row, result, field_name, column);
+		mysql_data_seek(result,0);
 		return true;
 	}
 	else
